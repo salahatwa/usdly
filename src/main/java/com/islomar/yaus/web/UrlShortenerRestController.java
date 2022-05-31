@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.islomar.yaus.core.model.URLShortenerService;
+import com.islomar.yaus.ip.IP2Location;
+import com.islomar.yaus.ip.IPResult;
 
 
 @RestController
@@ -80,6 +82,22 @@ public class UrlShortenerRestController {
 
     LOG.debug("Received request to redirect to '{}'", shortUrlId);
     LOG.info("ip:{},url-{}",getIpAddr(request),request.getRequestURL().toString());
+    
+    
+    String binfile = "IP2LOCATION-LITE-DB11.BIN";
+	
+	IP2Location loc = new IP2Location();
+	loc.Open(binfile, true);
+	
+	IPResult rec = loc.IPQuery(getIpAddr(request));
+	
+	if ("OK".equals(rec.getStatus()))
+	{
+		LOG.info("REC:{}",rec.getCountryLong());
+		System.out.println(rec);
+	}
+	
+	
     Optional<URL> shortenedURLFound = urlShortenerService.findURLById(shortUrlId);
     if (shortenedURLFound.isPresent()) {
       LOG.info("Redirecting to {}...", shortenedURLFound.get());
