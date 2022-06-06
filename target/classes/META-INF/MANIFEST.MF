@@ -1,9 +1,6 @@
 Manifest-Version: 1.0
 Implementation-Title: URL Shortener
 Implementation-Version: 1.0.0
-Built-By: alinma
-Implementation-Vendor-Id: com.islomar.yaus
-Build-Jdk: 1.8.0_251
+Build-Jdk-Spec: 1.8
 Created-By: Maven Integration for Eclipse
-Implementation-Vendor: Pivotal Software, Inc.
 
